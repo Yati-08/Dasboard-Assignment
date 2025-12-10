@@ -1,0 +1,115 @@
+/* Base page layout */
+:root {
+  --bg: #dbeafe;        /* light blue (Tailwind sky-200-ish) */
+  --panel: #111827;     /* slate-800 */
+  --text: #e5e7eb;      /* slate-200 */
+  --muted: #9ca3af;     /* slate-400 */
+  --accent: #0078d4;    /* Microsoft blue */
+}
+
+html, body, #root { height: 100%; background: var(--bg); color: var(--text); margin: 0; }
+.page { display: flex; flex-direction: column; height: 100%; }
+
+.page__header {
+  display: grid; grid-template-columns: 1fr auto; align-items: center;
+  gap: 1rem; padding: 1rem 1.25rem; background: var(--panel); border-bottom: 1px solid #1f2937;
+}
+.title h1 { margin: 0; font-size: 1.25rem; }
+.subtitle { margin: 0.25rem 0 0; color: var(--muted); font-size: 0.9rem; }
+
+.toolbar { display: flex; gap: 0.75rem; align-items: center; }
+.toolbar input[type="search"] {
+  background: #0b1220; color: var(--text); border: 1px solid #22304a; border-radius: 6px; padding: 0.5rem 0.75rem; width: 28ch;
+}
+.toolbar select, .btn {
+  background: #0b1220; color: var(--text); border: 1px solid #22304a; border-radius: 6px; padding: 0.45rem 0.65rem;
+}
+.btn { cursor: pointer; }
+.btn:hover, .toolbar input[type="search"]:focus, .toolbar select:focus { outline: none; border-color: var(--accent); }
+
+.sel { color: var(--muted); display: inline-flex; align-items: center; gap: .5rem; }
+.sel__badge { background: var(--accent); color: white; border-radius: 999px; padding: .15rem .5rem; font-weight: 600; }
+
+.page__content { padding: 1rem; }
+
+/* AG Grid tweaks */
+.grid {
+  --ag-background-color: #0b1220;
+  --ag-header-background-color: #0f172a;
+  --ag-header-foreground-color: var(--text);
+  --ag-odd-row-background-color: #0c1322;
+  --ag-row-hover-color: #111d34;
+  --ag-border-color: #1f2937;
+  --ag-selected-row-background-color: #0e2448;
+  --ag-font-size: 13px;
+  --ag-header-height: 56px;
+  /* Make exactly 10 rows fill the grid's height (70vh set in App.jsx) */
+  --ag-row-height: calc((70vh - var(--ag-header-height)) / 10);
+}
+
+/* Polish AG Grid visuals under the Quartz theme */
+.ag-theme-quartz .ag-root-wrapper {
+  border: 1px solid #1f2937;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+}
+.ag-theme-quartz .ag-header-cell-label {
+  font-weight: 600;
+  letter-spacing: .02em;
+}
+.ag-theme-quartz .ag-header-cell {
+  border-right: 1px solid var(--ag-border-color);
+}
+.ag-theme-quartz .ag-cell {
+  padding-inline: 8px;
+  border-right: 1px solid var(--ag-border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.ag-theme-quartz .ag-row-hover {
+  transition: background-color 140ms ease;
+}
+
+/* Selection checkbox: primary blue box with white checkmark */
+.ag-theme-quartz .ag-selection-checkbox input[type="checkbox"],
+.ag-theme-quartz .ag-header .ag-selection-checkbox input[type="checkbox"] {
+  accent-color: #0078d4; /* primary blue */
+}
+
+/* Empty state overlay */
+.empty-state {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+/* Monospace for numbers */
+.mono { font-feature-settings: 'tnum' 1, 'lnum' 1; font-variant-numeric: tabular-nums lining-nums; }
+
+/* Chips & badges */
+.badge {
+  color: #fff; font-weight: 600; border-radius: 999px;
+  padding: .15rem .5rem; display: inline-block; font-size: .8rem;
+}
+.chips { display: flex; flex-wrap: wrap; gap: .3rem; }
+.chip {
+  background: #0f1a30; border: 1px solid #22304a; color: var(--text);
+  border-radius: 999px; padding: .15rem .5rem; font-size: .78rem;
+}
+
+/* Status pills */
+.pill {
+  border-radius: 8px; font-weight: 600; font-size: .82rem; padding: .2rem .5rem; display: inline-block;
+}
+.pill--on  { background: #063c21; color: #9ef0b4; border: 1px solid #145a32; }
+.pill--off { background: #3a0f0f; color: #f5b1b1; border: 1px solid #7f1d1d; }
+
+/* Rating bar */
+.rating { position: relative; background: #091427; border: 1px solid #22304a; height: 20px; border-radius: 999px; overflow: hidden; }
+.rating__bar { position: absolute; top: 0; left: 0; bottom: 0; background: linear-gradient(90deg, #00c6ff, #0078d4); }
+.rating__text { position: absolute; inset: 0; display: grid; place-items: center; color: #cfe8ff; font-size: .75rem; }
